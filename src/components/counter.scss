@@ -3,6 +3,7 @@
 .buttons {
   padding: $size * 2;
   border: 1px solid $color_text-hover;
+  border-radius: $size;
   display: flex;
   align-items: center;
   justify-content: center;
