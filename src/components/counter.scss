@@ -1,0 +1,27 @@
+@import '../styles/settings.scss';
+
+.buttons {
+  padding: $size * 2;
+  border: 1px solid $color_text-hover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h2 {
+  font-size: 48px;
+  text-align: center;
+  margin-bottom: $size * 2;
+}
+
+.button {
+  cursor: default;
+  margin: $size;
+  padding: $size;
+  border: 1px solid $color_text-dark;
+  border-radius: $size;
+  &:hover {
+    color: $color_text-hover;
+    background-color: $color_bg;
+  }
+}
