@@ -1,18 +1,17 @@
-import { connect, ConnectedProps } from 'react-redux'
-import { decrement, increment, random } from '@src/store/actions'
 import React from 'react'
 import './counter.scss'
+import { counterSlice } from '@src/store/reducer'
+import { useAppDispatch, useAppSelector } from '@src/hooks/redux'
 
-const mapStateToProps = (state) => state
-const connector = connect(mapStateToProps)
+const Counter: React.FC = () => {
+  const dispatch = useAppDispatch()
+  const { counter } = useAppSelector((state) => state.counter)
+  const { increment, decrement, random } = counterSlice.actions
 
-const Counter: React.FC<ConnectedProps<typeof connector>> = ({
-  counter,
-  dispatch,
-}) => {
-  const handleInc = () => dispatch(increment())
-  const handleDec = () => dispatch(decrement())
-  const handleRnd = () => dispatch(random())
+  const handleInc = () => dispatch(increment(counter))
+  const handleDec = () => dispatch(decrement(counter))
+  const handleRnd = () => dispatch(random(Math.floor(Math.random() * 138)))
+
   return (
     <div className='counter'>
       <h2>{counter}</h2>
@@ -31,4 +30,4 @@ const Counter: React.FC<ConnectedProps<typeof connector>> = ({
   )
 }
 
-export default connector(Counter)
+export default Counter

@@ -1,20 +1,27 @@
-import { actionType } from './actions'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const initialState = {
+export interface CounterState {
+  counter: number
+}
+
+const initialState: CounterState = {
   counter: 0,
 }
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case actionType.INCREMEIN:
-      return { counter: state.counter + 1 }
-    case actionType.DECREMENT:
-      return { counter: state.counter - 1 }
-    case actionType.RANDOM:
-      return { counter: action.payload }
-    default:
-      return state
-  }
-}
+export const counterSlice = createSlice({
+  name: 'ocunter',
+  initialState,
+  reducers: {
+    increment(state, action) {
+      state.counter += 1
+    },
+    decrement(state, action) {
+      state.counter -= 1
+    },
+    random(state, action: PayloadAction<number>) {
+      state.counter = action.payload
+    },
+  },
+})
 
-export default reducer
+export default counterSlice.reducer
