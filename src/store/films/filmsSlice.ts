@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import getFilmsAction from './actions'
 
 interface Film {
-  kinopoiskId: number
+  kinopoiskId: 1252447
   imdbId: string
   nameRu: string
   nameEn: string
@@ -32,7 +33,7 @@ export const filmsSlice = createSlice({
   name: 'films',
   initialState,
   reducers: {
-    getFilms(state) {
+    /* getFilms(state) {
       state.isLoading = true
     },
     getFilmsSaccess(state, action: PayloadAction<Film[]>) {
@@ -40,6 +41,19 @@ export const filmsSlice = createSlice({
       state.isLoading = false
     },
     getFilmsError(state, action: PayloadAction<string>) {
+      state.error = action.payload
+      state.isLoading = false
+    }, */
+  },
+  extraReducers: {
+    [getFilmsAction.pending.type](state) {
+      state.isLoading = true
+    },
+    [getFilmsAction.fulfilled.type](state, action: PayloadAction<Film[]>) {
+      state.data = action.payload
+      state.isLoading = false
+    },
+    [getFilmsAction.rejected.type](state, action: PayloadAction<string>) {
       state.error = action.payload
       state.isLoading = false
     },
