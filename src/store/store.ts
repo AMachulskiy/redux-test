@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import counterReducer from './reducer'
+import filmsSlice from './films/filmsSlice'
+import counterReducer from './listFilmsSlice'
 
 const rootReducer = combineReducers({
   counter: counterReducer,
+  films: filmsSlice.reducer,
 })
 
 const store = configureStore({

@@ -1,33 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './counter.scss'
-import { counterSlice } from '@src/store/reducer'
+
 import { useAppDispatch, useAppSelector } from '@src/hooks/redux'
+import getFilmsAction from '@src/store/films/actions'
 
 const Counter: React.FC = () => {
   const dispatch = useAppDispatch()
-  const { counter } = useAppSelector((state) => state.counter)
-  const { increment, decrement, random } = counterSlice.actions
+  const { data, isLoading, error } = useAppSelector((state) => state.films)
 
-  const handleInc = () => dispatch(increment(counter))
-  const handleDec = () => dispatch(decrement(counter))
-  const handleRnd = () => dispatch(random(Math.floor(Math.random() * 138)))
+  useEffect(() => {
+    dispatch(getFilmsAction)
+  }, [])
 
-  return (
-    <div className='counter'>
-      <h2>{counter}</h2>
-      <div className='buttons'>
-        <div className='button' onClick={handleInc}>
-          _inc
-        </div>
-        <div className='button' onClick={handleDec}>
-          _dec
-        </div>
-        <div className='button' onClick={handleRnd}>
-          _rnd
-        </div>
+  const render = (id: number) => {
+    const { nameRu, nameOriginal, genres, ratingKinopoisk } = data[id]
+    return (
+      <div className='counter'>
+        <p>{nameRu}</p>
+        <p>{nameOriginal}</p>
+        <p>{genres[0].genre}</p>
+        <p>{ratingKinopoisk}</p>
       </div>
-    </div>
-  )
+    )
+  }
+  return render(8)
 }
 
 export default Counter
